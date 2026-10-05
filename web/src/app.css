@@ -1,0 +1,34 @@
+@import 'tailwindcss';
+
+/* Brand shared with umut-aslan.dev. Light by default: readable in bright halls and outdoors. */
+@theme {
+  --color-brand-50: #fdf3ec;
+  --color-brand-100: #fbe3d2;
+  --color-brand-500: #e8834a;
+  --color-brand-600: #d0682f;
+  --color-brand-700: #a94f1f;
+  --color-ink: #111214;
+  --font-sans: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+}
+
+@layer base {
+  html { -webkit-tap-highlight-color: transparent; }
+  body { @apply bg-stone-100 text-ink antialiased; }
+  :focus-visible { @apply outline-2 outline-offset-2 outline-brand-500; }
+}
+
+/* Reusable building blocks. Tailwind 4: @utility makes them composable via @apply. */
+@utility card { @apply rounded-2xl border border-stone-200 bg-white shadow-sm; }
+@utility btn {
+  @apply inline-flex min-h-12 items-center justify-center gap-2 rounded-xl px-4 font-semibold transition
+    active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-40;
+}
+@utility btn-primary { @apply btn bg-brand-500 text-white shadow-sm hover:bg-brand-600; }
+@utility btn-dark { @apply btn bg-ink text-white hover:bg-stone-800; }
+@utility btn-ghost { @apply btn border border-stone-300 bg-white text-ink hover:bg-stone-50; }
+@utility label { @apply text-xs font-semibold uppercase tracking-wider text-stone-500; }
+@utility input {
+  @apply min-h-12 w-full rounded-xl border border-stone-300 bg-white px-3 text-base outline-none
+    focus:border-brand-500 focus:ring-2 focus:ring-brand-100;
+}

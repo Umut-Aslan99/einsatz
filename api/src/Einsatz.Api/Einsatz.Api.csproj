@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+  <PropertyGroup>
+    <UserSecretsId>einsatz-api</UserSecretsId>
+    <NoWarn>$(NoWarn);CA1848;CA1515;CA1062;CA2007;CA1031;CA1819;CA1002;CA2227;CA1308;CA1305;CA1307;CA1304;CA1311;CA1873</NoWarn>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="HotChocolate.AspNetCore" Version="16.6.7" />
+    <PackageReference Include="HotChocolate.AspNetCore.Authorization" Version="16.6.7" />
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.12" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.12" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="10.0.12" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="10.0.3" />
+    <PackageReference Include="QuestPDF" Version="2026.9.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="../Einsatz.Domain/Einsatz.Domain.csproj" />
+    <InternalsVisibleTo Include="Einsatz.Tests" />
+    <EmbeddedResource Include="Demo/signature.png" />
+  </ItemGroup>
+</Project>

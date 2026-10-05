@@ -1,0 +1,70 @@
+# Einsatz – field service reports demo, served at svelte.umut-aslan.dev.
+#
+#   Browser ──▶ Traefik ──▶ web (SvelteKit: frontend + Backend-for-Frontend)
+#                                 │  session, view models, SSR, form actions
+#                                 ▼
+#                           api (.NET: REST + GraphQL, domain, integrations) ──▶ db (PostgreSQL)
+#
+# Only `web` joins the public proxy network. The API, its GraphQL schema and the database are internal.
+services:
+  db:
+    image: postgres:17-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: einsatz
+      POSTGRES_USER: einsatz
+      POSTGRES_PASSWORD: ${DB_PASSWORD:?set DB_PASSWORD in .env}
+    volumes: [db:/var/lib/postgresql/data]
+    networks: [internal]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U einsatz -d einsatz"]
+      interval: 10s
+      start_period: 10s
+      start_interval: 1s
+
+  api:
+    build: ./api
+    image: umutaslan/einsatz-api:${GIT_SHA:-local}
+    restart: unless-stopped
+    environment:
+      ConnectionStrings__Db: Host=db;Database=einsatz;Username=einsatz;Password=${DB_PASSWORD}
+      ASPNETCORE_ENVIRONMENT: Production
+    volumes: [data:/data]
+    depends_on:
+      db: { condition: service_healthy }
+    networks: [internal]
+    security_opt: [no-new-privileges:true]
+    mem_limit: 384m
+
+  web:
+    build: ./web
+    image: umutaslan/einsatz-web:${GIT_SHA:-local}
+    restart: unless-stopped
+    environment:
+      API_URL: http://api:8080
+      ORIGIN: ${ORIGIN:-https://svelte.umut-aslan.dev}
+      SESSION_SECRET: ${SESSION_SECRET:?set SESSION_SECRET in .env}
+    read_only: true
+    tmpfs: [/tmp]
+    security_opt: [no-new-privileges:true]
+    mem_limit: 192m
+    depends_on:
+      api: { condition: service_healthy }
+    networks: [internal, proxy]
+    labels:
+      - traefik.enable=${TRAEFIK_ENABLE:-true}
+      - traefik.docker.network=proxy
+      - traefik.http.routers.einsatz.rule=${EINSATZ_RULE:-Host(`svelte.umut-aslan.dev`)}
+      - traefik.http.routers.einsatz.entrypoints=websecure
+      - traefik.http.routers.einsatz.tls.certresolver=myresolver
+      - traefik.http.services.einsatz.loadbalancer.server.port=3000
+
+volumes:
+  db:
+  data:
+
+networks:
+  internal:
+    internal: true
+  proxy:
+    external: true

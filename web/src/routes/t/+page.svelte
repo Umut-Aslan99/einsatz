@@ -29,7 +29,7 @@
 
 {#each groups as g (g.title)}
   <h2 class="label mt-8">{g.title} · {g.jobs.length}</h2>
-  <ul class="mt-3 grid gap-3">
+  <ul class="mt-3 grid gap-3" data-tour="jobs">
     {#each g.jobs as j (j.id)}
       <li>
         <a href="/t/{j.id}" class="card block p-4 transition hover:border-brand-500 active:scale-[0.99]" data-testid="job-card">

@@ -99,7 +99,7 @@
   </section>
 
   <!-- Arbeitszeit -->
-  <section class="card mt-4 p-4">
+  <section class="card mt-4 p-4" data-tour="time">
     <div class="flex items-center justify-between">
       <h2 class="font-bold">Arbeitszeit</h2>
       <span class="font-mono text-sm tabular-nums text-stone-600">
@@ -126,7 +126,7 @@
   </section>
 
   <!-- Material -->
-  <section class="card mt-4 p-4">
+  <section class="card mt-4 p-4" data-tour="material">
     <div class="flex items-center justify-between">
       <h2 class="font-bold">Material</h2>
       <span class="text-sm tabular-nums text-stone-600">{fmtMoney(job.materialTotal)}</span>
@@ -152,7 +152,7 @@
   </section>
 
   <!-- Fotos -->
-  <section class="card mt-4 p-4">
+  <section class="card mt-4 p-4" data-tour="photos">
     <h2 class="font-bold">Fotos <span class="font-normal text-stone-500">· {job.photos.length}/8</span></h2>
     {#if job.photos.length}
       <ul class="mt-3 grid grid-cols-3 gap-2">
@@ -185,7 +185,7 @@
   </section>
 
   <!-- Unterschrift -->
-  <section class="card mt-4 p-4">
+  <section class="card mt-4 p-4" data-tour="signature">
     <h2 class="font-bold">Unterschrift Kunde</h2>
     {#if job.signature}
       <p class="mt-2 rounded-xl bg-emerald-50 p-3 text-emerald-800">

@@ -88,7 +88,7 @@
       </section>
 
       {#if job.status === 'Completed'}
-        <section class="card border-brand-500 p-5 ring-1 ring-brand-500">
+        <section class="card border-brand-500 p-5 ring-1 ring-brand-500" data-tour="review">
           <p class="font-semibold">Bericht prüfen</p>
           <p class="mt-1 text-sm text-stone-600">Freigabe erzeugt das PDF, legt es im DMS ab und übergibt Arbeitszeit und Material als Beleg an das ERP.</p>
           {#if returning}

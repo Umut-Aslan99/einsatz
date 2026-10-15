@@ -47,7 +47,7 @@
       <h2 class="mt-6 text-2xl font-bold lg:mt-0">Demo starten</h2>
       <p class="mt-1 text-stone-600">Ein Klick genügt – jede Rolle zeigt eine andere Seite des Prozesses.</p>
 
-      <div class="mt-6 grid gap-3">
+      <div class="mt-6 grid gap-3" data-tour="personas">
         {#each demo as d (d.login)}
           <form method="POST" use:enhance={submit}>
           <input type="hidden" name="login" value={d.login} /><input type="hidden" name="password" value="demo" />

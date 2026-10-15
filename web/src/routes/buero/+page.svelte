@@ -27,7 +27,7 @@
 <h1 class="text-2xl font-bold">Serviceberichte</h1>
 <p class="text-stone-600">Abgeschlossene Einsätze prüfen und an ERP und DMS übergeben.</p>
 
-<dl class="mt-6 grid grid-cols-2 gap-3 lg:grid-cols-4">
+<dl class="mt-6 grid grid-cols-2 gap-3 lg:grid-cols-4" data-tour="office-kpis">
   {#each kpis as k (k.label)}
     <div class="card p-4 {k.accent ? 'border-brand-500 ring-1 ring-brand-500' : ''}">
       <dt class="label">{k.label}</dt>
@@ -46,7 +46,7 @@
   {/each}
 </nav>
 
-<div class="card mt-4 overflow-hidden">
+<div class="card mt-4 overflow-hidden" data-tour="reports">
   <table class="w-full text-left text-sm">
     <thead class="hidden bg-stone-50 text-xs uppercase tracking-wider text-stone-500 md:table-header-group">
       <tr>
@@ -57,7 +57,7 @@
     </thead>
     <tbody class="divide-y divide-stone-100">
       {#each visible as j (j.id)}
-        <tr class="block cursor-pointer hover:bg-brand-50/50 md:table-row" data-testid="office-row">
+        <tr class="block cursor-pointer hover:bg-brand-50/50 md:table-row" data-testid="office-row" data-tour={j.status === 'Completed' ? 'review-row' : undefined}>
           <td class="block px-4 pt-3 md:table-cell md:py-3">
             <a href="/buero/{j.id}" class="font-mono font-medium text-brand-700 hover:underline">{j.number}</a>
             <span class="block text-xs text-stone-500">{fmtDate(j.scheduledFor)}</span>

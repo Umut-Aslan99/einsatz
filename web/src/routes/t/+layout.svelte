@@ -30,7 +30,7 @@
 <header class="sticky top-0 z-20 bg-ink text-white">
   <div class="mx-auto flex h-14 max-w-3xl items-center gap-3 px-4">
     <a href="/t"><Logo dark /></a>
-    <span class="ml-auto"><SyncPill /></span>
+    <span class="ml-auto" data-tour="sync"><SyncPill /></span>
     <button class="text-sm text-stone-400 hover:text-white" onclick={logout}>Abmelden</button>
   </div>
   <div class="h-1 w-2/5 bg-brand-500"></div>

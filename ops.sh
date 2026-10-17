@@ -21,6 +21,9 @@ backend_tests() {   # xUnit: domain rules + API against a real PostgreSQL, in th
 }
 
 e2e_tests() {       # Playwright against the full stack (BFF + API + DB), isolated from production
+  # The compose file joins Traefik's external network: it exists on the server; elsewhere (CI, a fresh clone) an
+  # empty one stands in, so the stack can start (Traefik itself is off here).
+  docker network inspect proxy >/dev/null 2>&1 || docker network create proxy >/dev/null
   local compose=(docker compose -p "$CI_PROJECT")
   TRAEFIK_ENABLE=false ORIGIN=http://localhost:3000 "${compose[@]}" up -d --build --wait
   trap 'docker compose -p einsatz-ci down -v >/dev/null 2>&1 || true' RETURN
